@@ -173,8 +173,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ffae17dfbe5fb8b429c487f997c28622, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 330585546}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ffae17dfbe5fb8b429c487f997c28622, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 171861283}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ffae17dfbe5fb8b429c487f997c28622, type: 3}
       insertIndex: -1
       addedObject: {fileID: 171861281}
@@ -237,6 +243,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &171861283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171861279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe8b3fba3035c84a908d047981416b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 5
+  _moveRotationSpeed: 200
+  _cameraSensitivity: 2
+  _cameraTransform: {fileID: 330585546}
+--- !u!4 &171861284 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ffae17dfbe5fb8b429c487f997c28622, type: 3}
+  m_PrefabInstance: {fileID: 171861278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,12 +350,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.014915936, y: -0.97321814, z: 0.21967523, w: 0.06608207}
-  m_LocalPosition: {x: 0.15706828, y: 1.6379796, z: 4.1264257}
+  m_LocalRotation: {x: 0.047915574, y: 0.052314922, z: -0.0025132021, w: 0.9974773}
+  m_LocalPosition: {x: 0.11688014, y: 1.8624395, z: -2.2143803}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 171861284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -657,7 +684,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 998182802}
