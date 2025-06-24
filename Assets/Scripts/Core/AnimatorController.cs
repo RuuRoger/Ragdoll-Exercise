@@ -3,8 +3,17 @@ using UnityEngine;
 
 namespace Assets.Scripts.Core
 {
+    [RequireComponent(typeof(Animator))]
+
     public class AnimatorController : MonoBehaviour
     {
+        private Animator _animator;
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
         private void OnEnable()
         {
             GameManager.OnPlayerBasicAnimations += UpdateAnimationState;
@@ -15,17 +24,17 @@ namespace Assets.Scripts.Core
             GameManager.OnPlayerBasicAnimations -= UpdateAnimationState;
         }
 
-        private void UpdateAnimationState(bool isMoving)
+
+
+        private void UpdateAnimationState(float speedValue)
         {
-            if (isMoving)
+            if (_animator != null && _animator.runtimeAnimatorController != null)
             {
-                Debug.Log("Player is moving");
-                // Trigger the walking animation
+                _animator.SetFloat("Axis Y", speedValue);
             }
             else
             {
-                Debug.Log("Player is not moving");
-                // Trigger the idle animation
+                Debug.LogWarning("Animator Controller not assigned to " + gameObject.name);
             }
         }
 

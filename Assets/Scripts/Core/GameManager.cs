@@ -5,7 +5,7 @@ namespace Assets.Scripts.Core
 {
     public class GameManager : MonoBehaviour
     {
-        public static event Action<bool> OnPlayerBasicAnimations;
+        public static event Action<float> OnPlayerBasicAnimations;
 
         private PlayerController _playerController;
 
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Core
             }
         }
 
-        private void CallAnimationController(bool isMoving) => OnPlayerBasicAnimations?.Invoke(isMoving);
+        private void CallAnimationController(float speedValue) => OnPlayerBasicAnimations?.Invoke(speedValue);
 
     }
 }
