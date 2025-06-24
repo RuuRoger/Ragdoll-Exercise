@@ -4,12 +4,13 @@ using UnityEngine;
 namespace Assets.Scripts.Core
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Animator))]
 
     public class PlayerController : MonoBehaviour
     {
         #region Events
 
-        public event Action<bool> OnPlayerMovement;
+        public event Action<float> OnPlayerMovement;
 
         #endregion
 
@@ -25,7 +26,6 @@ namespace Assets.Scripts.Core
 
         private float _verticalInput;
         private Rigidbody _rigidbodyPlayer;
-        private bool _currentlyMoving;
 
         #endregion
 
@@ -34,7 +34,6 @@ namespace Assets.Scripts.Core
         private void Awake()
         {
             _rigidbodyPlayer = GetComponent<Rigidbody>();
-            _currentlyMoving = false;
         }
 
         private void Update()
@@ -65,22 +64,8 @@ namespace Assets.Scripts.Core
             Remember: I must to keep the 'y' velocity to avoid falling*/
             _rigidbodyPlayer.linearVelocity = new Vector3(movement.x, _rigidbodyPlayer.linearVelocity.y, movement.z);
 
-            bool wasMoving = _currentlyMoving;
-
-            if (movement.magnitude > 0.1f)
-            {
-                _currentlyMoving = true;
-            }
-            else
-            {
-                _currentlyMoving = false;
-            }
-
-            // Only emit event when movement state changes
-            if (wasMoving != _currentlyMoving)
-            {
-                OnPlayerMovement?.Invoke(_currentlyMoving);
-            }
+            // Send the input value directly to Blend Tree
+            OnPlayerMovement?.Invoke(_verticalInput);
         }
 
         #endregion
