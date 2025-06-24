@@ -65,6 +65,8 @@ namespace Assets.Scripts.Core
             Remember: I must to keep the 'y' velocity to avoid falling*/
             _rigidbodyPlayer.linearVelocity = new Vector3(movement.x, _rigidbodyPlayer.linearVelocity.y, movement.z);
 
+            bool wasMoving = _currentlyMoving;
+
             if (movement.magnitude > 0.1f)
             {
                 _currentlyMoving = true;
@@ -74,8 +76,11 @@ namespace Assets.Scripts.Core
                 _currentlyMoving = false;
             }
 
-            // Emit event with current movement state
-            OnPlayerMovement?.Invoke(_currentlyMoving);
+            // Only emit event when movement state changes
+            if (wasMoving != _currentlyMoving)
+            {
+                OnPlayerMovement?.Invoke(_currentlyMoving);
+            }
         }
 
         #endregion
