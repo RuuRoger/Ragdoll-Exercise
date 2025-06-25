@@ -26,15 +26,12 @@ namespace Assets.Scripts.Core
 
 
 
-        private void UpdateAnimationState(float speedValue)
+        private void UpdateAnimationState(Vector2 inputVector)
         {
             if (_animator != null && _animator.runtimeAnimatorController != null)
             {
-                _animator.SetFloat("Axis Y", speedValue);
-            }
-            else
-            {
-                Debug.LogWarning("Animator Controller not assigned to " + gameObject.name);
+                _animator.SetFloat("Axis X", inputVector.x);
+                _animator.SetFloat("Axis Y", inputVector.y);
             }
         }
 

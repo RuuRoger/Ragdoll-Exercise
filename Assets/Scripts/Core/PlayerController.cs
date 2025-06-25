@@ -10,7 +10,7 @@ namespace Assets.Scripts.Core
     {
         #region Events
 
-        public event Action<float> OnPlayerMovement;
+        public event Action<Vector2> OnPlayerMovement;
 
         #endregion
 
@@ -25,6 +25,7 @@ namespace Assets.Scripts.Core
         #region Private Fields
 
         private float _verticalInput;
+        private float _horizontalInput;
         private Rigidbody _rigidbodyPlayer;
 
         #endregion
@@ -53,19 +54,21 @@ namespace Assets.Scripts.Core
         private void InputsMovement()
         {
             _verticalInput = Input.GetAxis("Vertical");
+            _horizontalInput = Input.GetAxis("Horizontal");
         }
 
         private void HandleMovement()
         {
             //Remember: I put the direction and the speed in the vector.
-            Vector3 movement = transform.forward * _verticalInput * _speedMovement;
+            Vector3 movement = (transform.forward * _verticalInput + transform.right * _horizontalInput) * _speedMovement;
 
             /*Remember: Apply the movement to the player
             Remember: I must to keep the 'y' velocity to avoid falling*/
             _rigidbodyPlayer.linearVelocity = new Vector3(movement.x, _rigidbodyPlayer.linearVelocity.y, movement.z);
 
             // Send the input value directly to Blend Tree
-            OnPlayerMovement?.Invoke(_verticalInput);
+            Vector2 inputVector = new Vector2(_horizontalInput, _verticalInput);
+            OnPlayerMovement?.Invoke(inputVector);
         }
 
         #endregion
