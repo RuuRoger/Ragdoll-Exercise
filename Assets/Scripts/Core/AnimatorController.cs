@@ -7,8 +7,12 @@ namespace Assets.Scripts.Core
 
     public class AnimatorController : MonoBehaviour
     {
+        #region Private Fields
         private Animator _animator;
 
+        #endregion
+
+        #region Unity Callbacks
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -24,8 +28,9 @@ namespace Assets.Scripts.Core
             GameManager.OnPlayerBasicAnimations -= UpdateAnimationState;
         }
 
+        #endregion
 
-
+        #region Private Methods
         private void UpdateAnimationState(Vector2 inputVector)
         {
             if (_animator != null && _animator.runtimeAnimatorController != null)
@@ -34,6 +39,8 @@ namespace Assets.Scripts.Core
                 _animator.SetFloat("Axis Y", inputVector.y);
             }
         }
+
+        #endregion
 
     }
 }

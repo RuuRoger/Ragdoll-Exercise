@@ -5,10 +5,17 @@ namespace Assets.Scripts.Core
 {
     public class GameManager : MonoBehaviour
     {
+        #region Events
         public static event Action<Vector2> OnPlayerBasicAnimations;
 
+        #endregion
+
+        #region Private Fields
         private PlayerController _playerController;
 
+        #endregion
+
+        #region Unity Callbacks
         private void Awake()
         {
             _playerController = FindFirstObjectByType<PlayerController>();
@@ -30,7 +37,12 @@ namespace Assets.Scripts.Core
             }
         }
 
+        #endregion
+
+        #region Private Methods
         private void CallAnimationController(Vector2 inputVector) => OnPlayerBasicAnimations?.Invoke(inputVector);
+
+        #endregion
 
     }
 }
