@@ -19,6 +19,7 @@ namespace Assets.Scripts.Core
         [Header("Movement Settings")]
         [Space(10)]
         [SerializeField] private float _speedMovement;
+        [SerializeField] private float _speedRotation;
 
         #endregion
 
@@ -73,7 +74,13 @@ namespace Assets.Scripts.Core
             Remember: I must to keep the 'y' velocity to avoid falling*/
             _rigidbodyPlayer.linearVelocity = new Vector3(movement.x, _rigidbodyPlayer.linearVelocity.y, movement.z);
 
+            //Rotation
+            transform.Rotate(0, _horizontalInput * _speedRotation * Time.deltaTime, 0);
+            transform.Translate(0, 0, _verticalInput * _speedMovement * Time.deltaTime);
+
             OnPlayerMovement?.Invoke(inputVector);
+
+
         }
 
         #endregion
