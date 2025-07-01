@@ -25,9 +25,10 @@ namespace Assets.Scripts.Core
 
         #region Private Fields
 
+        private Rigidbody _rigidbodyPlayer;
+        private Animator _playerAnimator;
         private float _verticalInput;
         private float _horizontalInput;
-        private Rigidbody _rigidbodyPlayer;
 
         #endregion
 
@@ -36,6 +37,7 @@ namespace Assets.Scripts.Core
         private void Awake()
         {
             _rigidbodyPlayer = GetComponent<Rigidbody>();
+            _playerAnimator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -54,8 +56,11 @@ namespace Assets.Scripts.Core
 
         private void InputsMovement()
         {
-            _verticalInput = Input.GetAxis("Vertical");
-            _horizontalInput = Input.GetAxis("Horizontal");
+            if (_playerAnimator.enabled)
+            {
+                _verticalInput = Input.GetAxis("Vertical");
+                _horizontalInput = Input.GetAxis("Horizontal");
+            }
         }
 
         private void HandleMovement()
