@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Assets.Scripts.Core; //Namespace for PlayerController!
+using Assets.Scripts.Object; //Namespace for CameraRagdollControl!
 
 namespace Assets.Scripts.Object
 {
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Object
 
         [Header("Explosion Settings")]
         [Space(15)]
+        [SerializeField] private Transform _hipsRagdoll;
         [SerializeField] private float _explosionRadius;
         [SerializeField] private float _explosionForce;
 
@@ -72,14 +74,15 @@ namespace Assets.Scripts.Object
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    // Aplicar fuerza de explosión
                     rb.AddExplosionForce(explosionForce, explosionCenter, explosionRadius);
 
-                    // Si es el player, activar ragdoll
                     PlayerController player = obj.GetComponent<PlayerController>();
+                    CameraRagdollControl cameraControl = FindFirstObjectByType<CameraRagdollControl>();
+
                     if (player != null)
                     {
-                        obj.GetComponent<Animator>().enabled = false; // Desactivar Animator
+                        obj.GetComponent<Animator>().enabled = false;
+                        cameraControl.SwitchToRagdoll();
                     }
                 }
             }
