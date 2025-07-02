@@ -21,13 +21,14 @@ namespace Assets.Scripts.Object
         public void SwitchToRagdoll()
         {
             _virtualCamera.Follow = _targetInRagdoll;
-            _virtualCamera.LookAt = _targetPlayer;
+            _virtualCamera.LookAt = _targetInRagdoll;
 
-            // if (transform.position.y <= 0)
-            // {
-            //     this.transform.position = new Vector3(transform.position.x, _highCamera, transform.position.z);
-            // }
-
+            if (_virtualCamera.transform.position.y <= 2)
+                _virtualCamera.transform.position = new Vector3(
+                    _virtualCamera.transform.position.x,
+                    _targetInRagdoll.position.y + _highCamera,
+                    _virtualCamera.transform.position.z
+                );
         }
 
         public void SwitchToPlayer()
@@ -35,5 +36,6 @@ namespace Assets.Scripts.Object
             _virtualCamera.Follow = _targetPlayer;
             _virtualCamera.LookAt = _targetPlayer;
         }
+
     }
 }
