@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using Assets.Scripts.Core; //Namespace for PlayerController!
-using Assets.Scripts.Object; //Namespace for CameraRagdollControl!
+using Assets.Scripts.Core;
 
 namespace Assets.Scripts.Object
 {
@@ -61,7 +60,12 @@ namespace Assets.Scripts.Object
         private void HandlerExplosion()
         {
             if (Input.GetKeyDown(KeyCode.Space))
+            {
                 Explosion(_explosionCenter, _explosionRadius, _explosionForce);
+
+                AudioController audioController = FindFirstObjectByType<AudioController>();
+                audioController.PlaySound();
+            }
         }
 
         private void Explosion(Vector3 explosionCenter, float explosionRadius, float explosionForce)
