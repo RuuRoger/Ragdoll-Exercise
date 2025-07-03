@@ -88,6 +88,7 @@ namespace Assets.Scripts.Object
                     if (player != null)
                     {
                         obj.GetComponent<Animator>().enabled = false;
+                        player.enabled = false; // SII???
                         cameraControl.SwitchToRagdoll();
                     }
                 }

@@ -36,6 +36,7 @@ namespace Assets.Scripts.Object
 
 
             player.GetComponent<Animator>().enabled = true;
+            player.enabled = true; // SII???
 
             _virtualCamera.Follow = _targetPlayer;
             _virtualCamera.LookAt = _targetPlayer;
@@ -45,7 +46,7 @@ namespace Assets.Scripts.Object
         private void ResetCameraPositon()
         {
             //The idea is move in axis Y the camera, because sometiees the camera is down of ground position looking the player
-            if (_virtualCamera.transform.position.y <= 2)
+            if (_virtualCamera.transform.position.y <= 5f)
                 _virtualCamera.transform.position = new Vector3(
                     _virtualCamera.transform.position.x,
                     _targetInRagdoll.position.y + _highCamera,
