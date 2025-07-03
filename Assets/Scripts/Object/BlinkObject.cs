@@ -15,9 +15,11 @@ namespace Assets.Scripts.Object
 
         [Header("Explosion Settings")]
         [Space(15)]
+        [SerializeField] private GameObject _explotionObjectPrefab;
         [SerializeField] private Transform _hipsRagdoll;
         [SerializeField] private float _explosionRadius;
         [SerializeField] private float _explosionForce;
+        [SerializeField] private bool _objectInScene;
 
         #endregion
 
@@ -32,6 +34,7 @@ namespace Assets.Scripts.Object
         {
             _objectRenderer = GetComponent<Renderer>();
             _explosionCenter = transform.position;
+            _objectInScene = true;
         }
 
         private void Start() => StartCoroutine(BlinkCoroutine());
@@ -45,7 +48,6 @@ namespace Assets.Scripts.Object
         {
             while (true)
             {
-
                 if (_objectRenderer == null)
                     yield break;
 
@@ -59,7 +61,7 @@ namespace Assets.Scripts.Object
 
         private void HandlerExplosion()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && _objectInScene)
             {
                 Explosion(_explosionCenter, _explosionRadius, _explosionForce);
 
@@ -93,5 +95,11 @@ namespace Assets.Scripts.Object
         }
         #endregion
 
+        private void StateMachineObjectPregfab()
+        {
+
+
+
+        }
     }
 }
