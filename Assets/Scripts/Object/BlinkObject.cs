@@ -67,6 +67,8 @@ namespace Assets.Scripts.Object
 
                 AudioController audioController = FindFirstObjectByType<AudioController>();
                 audioController.PlaySound();
+
+
             }
         }
 
@@ -88,7 +90,7 @@ namespace Assets.Scripts.Object
                     if (player != null)
                     {
                         obj.GetComponent<Animator>().enabled = false;
-                        player.enabled = false; // SII???
+                        player.enabled = false;
                         cameraControl.SwitchToRagdoll();
                     }
                 }
