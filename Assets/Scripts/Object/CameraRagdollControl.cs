@@ -12,8 +12,6 @@ namespace Assets.Scripts.Object
         [SerializeField] private Transform _targetInRagdoll;
         [SerializeField] private float _highCamera;
 
-        private Transform _ragdollTarget;
-
         private void Awake()
         {
             _virtualCamera = FindFirstObjectByType<CinemachineVirtualCamera>();
