@@ -24,6 +24,8 @@ namespace Assets.Scripts.Object
         #endregion
 
         #region private Fields
+
+        private BoxExplotion _boxExplotion;
         private Renderer _objectRenderer;
         private Vector3 _explosionCenter;
 
@@ -32,6 +34,7 @@ namespace Assets.Scripts.Object
         #region Unity Callbacks
         private void Awake()
         {
+            _boxExplotion = FindFirstObjectByType<BoxExplotion>();
             _objectRenderer = GetComponent<Renderer>();
             _explosionCenter = transform.position;
             _objectInScene = true;
@@ -39,7 +42,16 @@ namespace Assets.Scripts.Object
 
         private void Start() => StartCoroutine(BlinkCoroutine());
 
-        private void Update() => HandlerExplosion();
+        private void OnEnable()
+        {
+            GameManager.OnRespawn += RespawnObject;
+
+        }
+
+        private void Update()
+        {
+            HandlerExplosion();
+        }
 
         #endregion
 
@@ -68,7 +80,8 @@ namespace Assets.Scripts.Object
                 AudioController audioController = FindFirstObjectByType<AudioController>();
                 audioController.PlaySound();
 
-
+                _boxExplotion.Explotion();
+                _objectInScene = false;
             }
         }
 
@@ -96,13 +109,14 @@ namespace Assets.Scripts.Object
                 }
             }
         }
-        #endregion
-
-        private void StateMachineObjectPregfab()
+        private void RespawnObject()
         {
-
-
-
+            StopAllCoroutines();
+            _objectInScene = true;
+            _objectRenderer.enabled = true;
+            StartCoroutine(BlinkCoroutine());
         }
     }
+    #endregion
+
 }

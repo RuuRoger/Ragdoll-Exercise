@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Object;
 using UnityEngine;
 
 namespace Assets.Scripts.Core
@@ -7,11 +8,14 @@ namespace Assets.Scripts.Core
     {
         #region Events
         public static event Action<Vector2> OnPlayerBasicAnimations;
+        // public static event Action OnBoxExplotion;
+        public static event Action OnRespawn;
 
         #endregion
 
         #region Private Fields
         private PlayerController _playerController;
+        private BoxExplotion _boxExplotion;
 
         #endregion
 
@@ -19,28 +23,28 @@ namespace Assets.Scripts.Core
         private void Awake()
         {
             _playerController = FindFirstObjectByType<PlayerController>();
+            _boxExplotion = FindFirstObjectByType<BoxExplotion>();
         }
 
         private void OnEnable()
         {
-            if (_playerController != null)
-            {
-                _playerController.OnPlayerMovement += CallAnimationController;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (_playerController != null)
-            {
-                _playerController.OnPlayerMovement -= CallAnimationController;
-            }
+            _playerController.OnPlayerMovement += CallAnimationController;
+            _boxExplotion.OnExplotion += RespawnBox;
         }
 
         #endregion
 
         #region Private Methods
         private void CallAnimationController(Vector2 inputVector) => OnPlayerBasicAnimations?.Invoke(inputVector);
+        private void RespawnBox() => Invoke("ActivateBoxAfterDelay", 8f);
+
+
+        private void ActivateBoxAfterDelay()
+        {
+            _boxExplotion.gameObject.SetActive(true);
+            OnRespawn?.Invoke();
+        }
+
 
         #endregion
 
